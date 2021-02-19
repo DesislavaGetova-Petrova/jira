@@ -6,20 +6,23 @@ import desy.demo.model.entity.ProgressType;
 import desy.demo.model.entity.User;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Enumerated;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TaskAddBindingModel {
     private String name;
     private String description;
-    private LocalDateTime dueDate;
+    private LocalDate dueDate;
     private ClassificationName classification;
 
     public TaskAddBindingModel() {
     }
-    @NotBlank
+    @NotNull
     @Size(min=3,max=20, message = "Name must be between 3 and 20 characters!")
     public String getName() {
         return name;
@@ -38,21 +41,23 @@ public class TaskAddBindingModel {
         this.description = description;
         return this;
     }
-    @DateTimeFormat( pattern = "yyyy-MM-dd'T'HH:mm")
+
+    @DateTimeFormat( pattern = "yyyy-MM-dd")
     @FutureOrPresent(message = "The date cannot be in the past")
-    public LocalDateTime getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public TaskAddBindingModel setDueDate(LocalDateTime dueDate) {
+    public TaskAddBindingModel setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
         return this;
     }
 
+    @NotNull(message = "Cannot be null")
     public ClassificationName getClassification() {
         return classification;
     }
-    @NotBlank(message = "Cannot be null")
+
     public TaskAddBindingModel setClassification(ClassificationName classification) {
         this.classification = classification;
         return this;

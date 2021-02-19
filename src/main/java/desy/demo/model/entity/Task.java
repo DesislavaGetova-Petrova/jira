@@ -1,6 +1,7 @@
 package desy.demo.model.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -8,8 +9,8 @@ import java.time.LocalDateTime;
 public class Task extends BaseEntity{
     private String name;
     private String description;
-    private ProgressType progress;
-    private LocalDateTime dueDate;
+    private String progress;
+    private LocalDate dueDate;
     private Classification classification;
     private User user;
 
@@ -33,29 +34,30 @@ public class Task extends BaseEntity{
         this.description = description;
         return this;
     }
-    @Enumerated(value = EnumType.STRING)
-    public ProgressType getProgress() {
+    @Column(nullable = false)
+    public String getProgress() {
         return progress;
     }
 
-    public Task setProgress(ProgressType progress) {
+    public Task setProgress(String progress) {
         this.progress = progress;
         return this;
     }
+
     @Column(name="due_date")
-    public LocalDateTime getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public Task setDueDate(LocalDateTime dueDate) {
+    public Task setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
         return this;
     }
+
     @ManyToOne
     public Classification getClassification() {
         return classification;
     }
-
     public Task setClassification(Classification classification) {
         this.classification = classification;
         return this;

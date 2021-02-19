@@ -29,4 +29,9 @@ private final ClassificationRepository classificationRepository;
         }
 
     }
+
+    @Override
+    public Classification findByClassificationaname(ClassificationName classificationName) {
+        return this.classificationRepository.findByClassificationName(classificationName).orElse(null);
+    }
 }

@@ -55,7 +55,7 @@ public class UserController {
             return "redirect:login";
         }
         httpSession.setAttribute("user",user);
-        return "redirect:/";
+        return "redirect:/home";
     }
     @GetMapping("/register")
     public String register(Model model){

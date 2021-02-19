@@ -10,28 +10,28 @@
     <main class="content-wrap">
         <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Task</span></h1>
         <hr class="hr-3 w-25 bg-white"/>
-        <form class="mx-auto w-25 bg-blur"  method="" action="/">
+        <form class="mx-auto w-25 bg-blur" th:object="${taskAddBindingModel}" th:action="@{/tasks/add}" method="POST">
             <div class="form-group">
                 <div class="label-holder textCol d-flex justify-content-center">
                     <label for="name" class="h4 mb-2">Name</label>
                 </div>
-                <input type="text"  class="form-control" id="name" name="name"/>
-                <small class="text-danger">Name error message</small>
+                <input th:field="*{name}" th:errorclass="bg-danger" type="text"  class="form-control" id="name" name="name"/>
+                <small th:each="e:${#fields.errors('name')}" th:text="${e}" class="text-danger">Name error message</small>
             </div>
             <div class="form-group">
                 <div class="label-holder textCol d-flex justify-content-center">
                     <label for="description" class="h4 mb-2">Description</label>
                 </div>
-                <input type="text" class="form-control" id="description" name="description"/>
+                <input th:field="*{description}" th:errorclass="bg-danger" type="text" class="form-control" id="description" name="description"/>
 
-                <small class="text-danger">Description error message</small>
+                <small th:each="e:${#fields.errors('description')}" th:text="${e}" class="text-danger">Description error message</small>
             </div>
             <div class="form-group">
                 <div class="label-holder  textCol d-flex justify-content-center">
                     <label for="dueDate" class="h4 mb-2">Due Date</label>
                 </div>
-                <input type="date" class="form-control" id="dueDate" name="dueDate"/>
-                <small class="text-danger">Date error message</small>
+                <input th:field="*{dueDate}" th:errorclass="bg-danger" type="date" class="form-control" id="dueDate" name="dueDate"/>
+                <small th:each="e:${#fields.errors('dueDate')}" th:text="${e}" class="text-danger">Date error message</small>
             </div>
             <div class="form-group">
                 <div class="label-holder  textCol d-flex justify-content-center">
@@ -39,14 +39,9 @@
                 </div>
                 <select type="text" class="form-control" id="classification" name="classification">
                     <option value="">Select Classification</option>
-                    <option value="">FEATURE</option>
-                    <option value="">BUG</option>
-                    <option value="">SUPPORT</option>
-                    <option value="">OTHER</option>
-
-
+                    <option th:each="c : ${T(desy.demo.model.entity.ClassificationName).values()}" th:text="${c}" th:value="${c}"value="">FEATURE</option>
                 </select>
-                <small class="text-danger">Classification error message</small>
+                <small th:each="e:${#fields.errors('classification')}" th:text="${e}"class="text-danger">Classification error message</small>
             </div>
 
             <div class="button-holder d-flex justify-content-center">
